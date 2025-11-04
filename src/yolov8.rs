@@ -1,10 +1,11 @@
 use super::{
-    bounding_box::{BoundingBox, non_maximum_suppression_fast},
+    bounding_box::{non_maximum_suppression_fast, BoundingBox},
     model::{Multiples, YoloV8 as YoloV8Model},
 };
 use candle_core::{DType, Device, IndexOp, Tensor};
 use candle_nn::{Module, VarBuilder};
 use kornia_image::{Image, ImageSize};
+use kornia_tensor;
 
 /// YOLOv8 error enum.
 #[derive(thiserror::Error, Debug)]
@@ -155,10 +156,10 @@ impl YoloV8 {
             kornia_imgproc::interpolation::InterpolationMode::Nearest,
         )?;
 
-        let image_resized = image_resized.map(|&x| x as f32 / 255.0);
+        let image_resized = image_resized.map(|&x| x as f32 / 255.0)?;
 
         let image_t =
-            Tensor::from_vec::<_, f32>(image_resized.into_vec(), (height, width, 3), &self.device)?
+            Tensor::from_vec::<_, f32>(<kornia_tensor::tensor::Tensor<f32, 3, kornia_tensor::allocator::CpuAllocator> as Clone>::clone(&image_resized).into_vec(), (height, width, 3), &self.device)?
                 .permute((2, 0, 1))?
                 .unsqueeze(0)?;
 

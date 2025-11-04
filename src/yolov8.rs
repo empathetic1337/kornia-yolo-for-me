@@ -1,4 +1,4 @@
-extern crate kornia_tensor;
+use kornia_tensor;
 
 use super::{
     bounding_box::{non_maximum_suppression_fast, BoundingBox},

@@ -1,3 +1,5 @@
+extern crate kornia_tensor;
+
 use super::{
     bounding_box::{non_maximum_suppression_fast, BoundingBox},
     model::{Multiples, YoloV8 as YoloV8Model},
@@ -5,7 +7,6 @@ use super::{
 use candle_core::{DType, Device, IndexOp, Tensor};
 use candle_nn::{Module, VarBuilder};
 use kornia_image::{Image, ImageSize};
-use kornia_tensor;
 
 /// YOLOv8 error enum.
 #[derive(thiserror::Error, Debug)]

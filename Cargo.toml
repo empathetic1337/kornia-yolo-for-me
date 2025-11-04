@@ -19,6 +19,7 @@ kornia-imgproc = "0.1.8"
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "2.0"
 tracing = "0.1"
+kornia-tensor = "0.1.8"
 
 [dev-dependencies]
 argh = "0.1"
